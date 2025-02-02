@@ -6,24 +6,47 @@
 
 #root {
   max-width: 1280px;
-  height: 100dvh;
+  height: fit-content;
   margin: 0 auto;
   text-align: center;
-  border: 1px solid;
+  border: 1px solid red;
 }
 
 .container {
   padding: 1rem;
   height: 100%;
+  display: flex;
+}
+
+.left,
+.right {
+  flex: 1;
+}
+p {
+  /* line-height: 1.4;
+  font-family: "Smooch Sans", serif;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  font-size: 1.3rem; */
+  line-height: 1.4;
+  letter-spacing: 1.2px;
+}
+h2 {
+  font-size: 2.5rem;
+  font-family: "dancing script";
+}
+.btn_wrap {
+  padding: 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 /* --------Hero Section-------- */
 .hero {
   height: 100dvh;
-}
-.hero .wrap {
-  display: flex;
-  height: 100%;
 }
 /* ///////// Hero Left ///////// */
 .hero .left {
@@ -46,11 +69,8 @@
 }
 .hero .left .text_wrap .fancy {
   margin-bottom: 1rem;
-  font-family: "dancing script";
+  font-family: "dancing script", serif;
   color: teal;
-}
-.hero .left .text_wrap p {
-  line-height: 1.4;
 }
 
 /* ///////// Hero Right ///////// */
@@ -70,3 +90,193 @@
   object-fit: cover;
 }
 /* xx--------Hero Section--------xx */
+
+/* --------About Section-------- */
+.about {
+  height: 100dvh;
+}
+
+/* ///////// About Right ///////// */
+
+.about .right {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  text-align: left;
+}
+.about .right .text_wrap {
+  /* min-height: 400px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.about .right .text_wrap {
+  /* font-family: "Smooch Sans"; */
+  font-family: "dancing script";
+}
+.about .right .text_wrap p {
+  text-align: justify;
+}
+.about .right .text_wrap .btn_wrap {
+  justify-content: start;
+}
+
+/* ///////// About Left ///////// */
+
+.about .left {
+  padding-left: 2rem;
+  overflow: hidden;
+  height: 100%;
+}
+.about .left .img_wrap {
+  position: relative;
+  height: 90%;
+  width: 90%;
+  /* background-color: teal; */
+  border-radius: 50%;
+  overflow: hidden !important;
+  margin: auto 0;
+  box-shadow: 0px 2px 1px 0px #213547af;
+}
+
+.about .left .img_wrap .blob {
+  border: 5px double white;
+  position: absolute;
+  width: 45px;
+  margin: auto;
+  height: 45px;
+  background-color: teal;
+  /* background-color: #ccc; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: -2;
+}
+.about .left .img_wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* xx--------About Section--------xx */
+
+/* --------Tech-Stack Section-------- */
+.tech_stack {
+  min-height: 50dvh;
+  padding-block: 2rem;
+  margin-block: 25dvh;
+}
+.tech_stack .container {
+  align-items: center;
+  flex-direction: column;
+}
+
+.tech_stack .stacks {
+  display: flex;
+  gap: 10px;
+  margin-top: 2rem;
+  perspective: 1000px;
+}
+
+.tech_stack .stack {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-in-out;
+}
+.tech_stack .stack:hover {
+  transform: rotateY(180deg);
+}
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform-origin: center; /* Ensures even flipping */
+}
+
+.card-front {
+  background-color: teal;
+}
+
+.card-back {
+  background-color: #213547;
+  padding: 0.2rem;
+  flex-direction: column;
+  color: white;
+  transform: rotateY(180deg);
+}
+.card-back h5 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid #cccccc75;
+  color: teal;
+  text-shadow: 1px 0px 1px white;
+}
+
+.tech_stack .stack img {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  object-fit: contain;
+}
+/* xx--------Tech-Stack Section--------xx */
+
+/* --------Project Section-------- */
+.project {
+  height: 100dvh;
+}
+.project .container {
+  display: block;
+}
+.project h2 .style1 {
+  color: teal;
+  margin-right: 1rem;
+}
+
+.project p {
+  width: 60%;
+  margin: 1rem auto 0;
+  padding: 0.4rem;
+}
+
+.project .projects {
+  margin-top: 1rem;
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+}
+.projects .proj {
+  width: 32%;
+  height: 100%;
+  position: relative;
+  border: 1px solid rgba(128, 128, 128, 0.426);
+}
+.projects .proj .top {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 0.5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border: 1px solid;
+}
+.projects .proj .top span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+/* xx--------Project Section--------xx */

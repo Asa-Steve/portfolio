@@ -1,0 +1,57 @@
+button {
+  padding: 0.2rem 2rem;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-family: "Smooch Sans", serif;
+  letter-spacing: 1.2px;
+  border: 1px solid grey;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 20;
+}
+
+button span {
+  position: relative;
+  z-index: 10;
+}
+
+/* ////// Hero Buttons First////// */
+button.primary:first-of-type {
+  background-color: #213547;
+  color: white;
+}
+button:hover span {
+  color: white;
+  transition: all 0.3s ease;
+}
+button.primary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  transition: width 0.3s ease;
+  background-color: teal;
+}
+button.primary:hover::before {
+  background-color: teal;
+  width: 100%;
+  z-index: 1;
+}
+
+/* ////// Hero Buttons Second////// */
+button.secondary::before {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 0;
+  transition: all 0.3s ease;
+}
+button.secondary:hover::before {
+  height: 100%;
+  background-color: #213547;
+}
