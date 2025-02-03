@@ -1,7 +1,29 @@
+/* Target the entire scrollbar */
+::-webkit-scrollbar {
+  width: 4px; /* Adjust width */
+}
+
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: teal; /* Change scrollbar color */
+  border-radius: 4px; /* Round edges */
+}
+
+/* Track (background of scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Light gray background */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkcyan;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  cursor: url("imgs/cursor.png"), auto;
 }
 
 #root {
@@ -9,7 +31,7 @@
   height: fit-content;
   margin: 0 auto;
   text-align: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .container {
@@ -23,11 +45,6 @@
   flex: 1;
 }
 p {
-  /* line-height: 1.4;
-  font-family: "Smooch Sans", serif;
-  letter-spacing: 1.2px;
-  font-weight: 600;
-  font-size: 1.3rem; */
   line-height: 1.4;
   letter-spacing: 1.2px;
 }
@@ -42,6 +59,52 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+.divider {
+  height: 180px;
+  width: 50%;
+}
+
+/* Fliping */
+
+.cards {
+  display: flex;
+  perspective: 1000px;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-in-out;
+}
+.card:hover {
+  transform: rotateY(180deg);
+}
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform-origin: center; /* Ensures even flipping */
+}
+
+.card-front {
+  /* background-color: teal; */
+}
+
+.card-back {
+  background-color: #213547;
+  padding: 0.2rem;
+  flex-direction: column;
+  color: white;
+  transform: rotateY(180deg);
 }
 
 /* --------Hero Section-------- */
@@ -105,16 +168,12 @@ h2 {
   text-align: left;
 }
 .about .right .text_wrap {
-  /* min-height: 400px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
 }
-.about .right .text_wrap {
-  /* font-family: "Smooch Sans"; */
-  font-family: "dancing script";
-}
+
 .about .right .text_wrap p {
   text-align: justify;
 }
@@ -143,9 +202,9 @@ h2 {
 .about .left .img_wrap .blob {
   border: 5px double white;
   position: absolute;
-  width: 45px;
+  width: 40px;
   margin: auto;
-  height: 45px;
+  height: 40px;
   background-color: teal;
   /* background-color: #ccc; */
   top: 50%;
@@ -165,7 +224,6 @@ h2 {
 .tech_stack {
   min-height: 50dvh;
   padding-block: 2rem;
-  margin-block: 25dvh;
 }
 .tech_stack .container {
   align-items: center;
@@ -173,47 +231,10 @@ h2 {
 }
 
 .tech_stack .stacks {
-  display: flex;
   gap: 10px;
   margin-top: 2rem;
-  perspective: 1000px;
 }
 
-.tech_stack .stack {
-  width: 200px;
-  height: 200px;
-  cursor: pointer;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease-in-out;
-}
-.tech_stack .stack:hover {
-  transform: rotateY(180deg);
-}
-.card-front,
-.card-back {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backface-visibility: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transform-origin: center; /* Ensures even flipping */
-}
-
-.card-front {
-  background-color: teal;
-}
-
-.card-back {
-  background-color: #213547;
-  padding: 0.2rem;
-  flex-direction: column;
-  color: white;
-  transform: rotateY(180deg);
-}
 .card-back h5 {
   font-size: 1.4rem;
   margin-bottom: 0.3rem;
@@ -232,7 +253,7 @@ h2 {
 
 /* --------Project Section-------- */
 .project {
-  height: 100dvh;
+  min-height: 100dvh;
 }
 .project .container {
   display: block;
@@ -241,13 +262,11 @@ h2 {
   color: teal;
   margin-right: 1rem;
 }
-
 .project p {
   width: 60%;
   margin: 1rem auto 0;
   padding: 0.4rem;
 }
-
 .project .projects {
   margin-top: 1rem;
   height: 400px;
@@ -258,8 +277,18 @@ h2 {
 .projects .proj {
   width: 32%;
   height: 100%;
-  position: relative;
-  border: 1px solid rgba(128, 128, 128, 0.426);
+}
+.projects .proj:hover {
+  transform: rotateY(0);
+}
+.projects .proj.active {
+  transform: rotateY(180deg);
+}
+
+.projects .proj .card-front,
+.projects .proj .card-back {
+  height: 400px;
+  overflow: hidden;
 }
 .projects .proj .top {
   height: 35px;
@@ -268,15 +297,208 @@ h2 {
   gap: 4px;
   padding-left: 0.5rem;
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  border: 1px solid;
+  z-index: 3;
+  background-color: #ccc;
+  transition: all 0.3s ease;
 }
 .projects .proj .top span {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: white;
 }
+.projects .proj .img_wrap {
+  height: 100%;
+  overflow: hidden;
+  margin-top: 35px;
+}
+.projects .proj img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: all 0.8s ease;
+}
+.projects .proj:hover img {
+  transform: translateY(-100px);
+}
+.projects .proj:hover .top {
+  background-color: #213547;
+}
+.projects .proj:hover .top span {
+  background-color: white;
+}
+
+.projects .proj p {
+  width: 99% !important;
+  text-align: center;
+}
+
+.projects .proj .card-back .stacks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  width: 60%;
+}
+.projects .proj .card-back .stacks span {
+  background-color: teal;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+.projects .proj .card-back .stacks span:hover {
+  background-color: #fff;
+  color: #213547;
+}
+.projects .proj .card-back a {
+  color: white;
+  margin-top: 0.5rem;
+  padding: 0.3rem;
+  text-decoration: none;
+}
+
 /* xx--------Project Section--------xx */
+
+/* --------Form Section-------- */
+.form-section {
+  height: 100dvh;
+}
+
+.form-section .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+.form-section .left h4 {
+  font-family: "Smooch Sans";
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+}
+.form-section .left h4:first-of-type {
+  margin-left: 1rem;
+}
+.form-section .left h4:last-of-type {
+  margin-left: 2rem;
+}
+.form-section .left .caption {
+  width: 80%;
+  position: relative;
+  color: teal;
+}
+.form-section .left .caption img {
+  position: absolute;
+  right: -0%;
+  top: 8%;
+  bottom: 50%;
+  transform: rotate(25deg);
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+}
+.form-section .left .info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+  margin-top: 2rem;
+  height: 200px;
+  overflow: hidden;
+  position: absolute;
+  top: 0%;
+  right: 0;
+}
+.form-section .left .info span {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Smooch Sans";
+  letter-spacing: 1.2px;
+  border: 1px solid #ccc;
+  height: 40px;
+  padding-left: 0.5rem;
+  transform: translateX(190px);
+  transition: all 1s ease;
+}
+.form-section .left .info span:hover {
+  transform: translateX(15px);
+}
+
+.form-section .left .info span img {
+  width: 30px;
+  height: 30px;
+  margin: auto 0;
+}
+
+.form-section .seperator {
+  width: 0.5px;
+  height: 100%;
+  background-color: teal;
+  margin: auto;
+}
+.form-section .right {
+  flex: 1.5;
+}
+.form-section form {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+}
+
+.form-section .right label {
+  font-size: 1.2rem;
+}
+.form-section .right input {
+  width: 100%;
+  height: 40px;
+  padding: 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.form-section .right .input_grp {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  text-align: start;
+}
+.form-section .right .input_grp div {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.form-section .right .row {
+  width: 100%;
+  text-align: start;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+.form-section .right .row input {
+  width: 100%;
+}
+.form-section .right .row textarea {
+  width: 100%;
+  resize: none;
+  height: 250px;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+/* xx--------Form Section--------xx */
+
+/* --------Footer Section-------- */
+footer .container {
+  text-align: center;
+}
+footer .container p {
+  margin: auto;
+  padding-inline: 2rem;
+  font-family: "Smooch Sans";
+}
+
+/* xx--------Footer Section--------xx */
