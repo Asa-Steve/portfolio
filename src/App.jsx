@@ -70,13 +70,27 @@ function App() {
 
   // Hero image animation using GSAP
   useEffect(() => {
-    if (imageRef.current) {
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 633px)", () => {
+      // Mobile Animation (from bottom)
       gsap.fromTo(
         imageRef.current,
-        { xPercent: -100, opacity: 0 }, // Start fully left (-100%)
-        { xPercent: 0, opacity: 1, duration: 1.5, ease: "power3.out" } // Move to original position
+        { yPercent: 100, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 1.5, ease: "power3.out" }
       );
-    }
+    });
+
+    mm.add("(min-width: 632px)", () => {
+      // Desktop Animation (from left)
+      gsap.fromTo(
+        imageRef.current,
+        { xPercent: -100, opacity: 0 },
+        { xPercent: 0, opacity: 1, duration: 1.5, ease: "power3.out" }
+      );
+    });
+
+    return () => mm.revert(); // Cleanup on unmount
   }, []);
 
   // About Me image animation using GSAP
