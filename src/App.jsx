@@ -116,52 +116,84 @@ function App() {
   }, []);
 
   // About Me image animation using GSAP
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const mm = gsap.matchMedia();
+    const mm = gsap.matchMedia(); // ✅ 1. Use matchMedia for responsive settings
 
     mm.add(
       {
         isMobile: "(max-width: 632px)", // Mobile breakpoint
-        isDesktop: "(min-width: 631px)", // Desktop breakpoint
+        isDesktop: "(min-width: 633px)", // Desktop breakpoint
       },
       (context) => {
         const { isMobile, isDesktop } = context.conditions;
 
-        // Set different total frames
-        const totalFrames = isMobile ? 50 : 135; // Mobile has 50 frames, Desktop has 135
+        // ✅ 2. Set frames & animation behavior based on screen size
+        const totalFrames = isMobile ? 50 : 135;
+        const scrubSpeed = isMobile ? 0.5 : 0.1; // Mobile reacts slightly slower
 
+        // ✅ 3. Preload only the needed images
+        const preloadImages = () => {
+          for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            img.src = `/imgs/animate/male${String(i).padStart(4, "0")}.png`;
+            document.body.appendChild(img); // Force browser to cache
+            img.style.display = "none";
+          }
+        };
+
+        preloadImages(); // Preload images
+
+        // ✅ 4. Function to update image frames
+        const updateFrame = (progress) => {
+          const newFrame = Math.floor(progress * (totalFrames - 1)) + 1;
+
+          if (newFrame !== frameRef.current) {
+            frameRef.current = newFrame;
+            const newSrc = `/imgs/animate/male${String(newFrame).padStart(
+              4,
+              "0"
+            )}.png`;
+
+            // Ensure image is decoded before switching
+            const img = new Image();
+            img.src = newSrc;
+            img
+              .decode()
+              .then(() => {
+                imageRefAnimated.current.src = newSrc;
+                // Force repaint
+                imageRefAnimated.current.style.opacity = "0.99";
+                setTimeout(() => {
+                  imageRefAnimated.current.style.opacity = "1";
+                }, 0);
+              })
+              .catch((err) => console.error("Image decoding failed", err));
+          }
+        };
+
+        // ✅ 5. GSAP Animation with correct settings
         gsap.to(
           {},
           {
             scrollTrigger: {
               trigger: containerRef.current,
-              start: isMobile ? "top center" : "top top", // Different start points
-              end: isMobile ? "bottom center" : "bottom top", // Different end points
-              scrub: isMobile ? 0.1 : 0.3, // Different scrub values
-              onUpdate: (self) => {
-                const newFrame =
-                  Math.floor(self.progress * (totalFrames - 1)) + 1;
-
-                if (newFrame !== frameRef.current) {
-                  frameRef.current = newFrame;
-                  imageRefAnimated.current.src = `/imgs/animate/male${String(
-                    newFrame
-                  ).padStart(4, "0")}.png`;
-
-                  console.log(imageRefAnimated.current.src);
-                }
-              },
+              start: isMobile ? "top center" : "top top", // Adjust scroll behavior
+              end: isMobile ? "bottom center" : "bottom top",
+              scrub: scrubSpeed,
+              onUpdate: (self) => updateFrame(self.progress),
             },
           }
         );
       }
     );
 
-    return () => mm.revert(); // Cleanup on unmount
+    return () => mm.revert(); // ✅ 6. Cleanup when unmounting or resizing
   }, []);
 
+  
   // Blob animation using GSAP
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
