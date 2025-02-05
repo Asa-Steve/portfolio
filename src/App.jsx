@@ -156,6 +156,8 @@ function App() {
             },
           }
         );
+        // **Force ScrollTrigger to recalculate everything**
+        ScrollTrigger.refresh();
       }
     );
 
