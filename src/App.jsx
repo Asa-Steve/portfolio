@@ -5,7 +5,6 @@ import Btn from "./components/Button/Button";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
 
 const myStack = [
   {
@@ -91,6 +90,8 @@ function App() {
 
   // Hero image animation using GSAP
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const mm = gsap.matchMedia();
 
     mm.add("(max-width: 633px)", () => {
@@ -116,6 +117,8 @@ function App() {
 
   // About Me image animation using GSAP
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const mm = gsap.matchMedia();
 
     mm.add(
@@ -159,6 +162,8 @@ function App() {
 
   // Blob animation using GSAP
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const mm = gsap.matchMedia();
 
     mm.add(

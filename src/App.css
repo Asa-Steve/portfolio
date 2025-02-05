@@ -24,8 +24,7 @@
   padding: 0;
   margin: 0;
   cursor: url("imgs/cursor.png"), auto;
-  font-family: "Smooch Sans",serif;
-
+  font-family: "Smooch Sans", serif;
 }
 
 #root {
@@ -57,7 +56,7 @@ p.tagline {
 }
 h2 {
   font-size: 2.5rem;
-  font-family: "dancing script",serif;
+  font-family: "dancing script", serif;
 }
 .btn_wrap {
   padding: 0.5rem;
