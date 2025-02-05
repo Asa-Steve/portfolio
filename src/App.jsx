@@ -149,6 +149,8 @@ function App() {
                   imageRefAnimated.current.src = `/imgs/animate/male${String(
                     newFrame
                   ).padStart(4, "0")}.png`;
+
+                  console.log(imageRefAnimated.current.src);
                 }
               },
             },
