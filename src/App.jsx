@@ -1,5 +1,6 @@
 import "./App.css";
 import { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import Btn from "./components/Button/Button";
 
 import gsap from "gsap";
@@ -56,17 +57,37 @@ const Projects = [
 
 function App() {
   const [flipId, setFlipId] = useState(null);
+  const [feedBack, setFeedBack] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // hero image ref
   const imageRef = useRef(null);
 
-  // about me image refs
+  // about_me image refs
   const containerRef = useRef(null);
   const imageRefAnimated = useRef(null);
-  const totalFrames = 135; // Number of frames
+  const frameRef = useRef(1);
 
   // blob ref
   const blobRef = useRef(null);
+
+  // Form Ref
+  const form = useRef();
+
+  // Show button when scrolling down
+  useEffect(() => {
+    const toggleVisibility = () => {
+      setIsVisible(window.scrollY > 1000); // Show when scrolled down 300px
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Hero image animation using GSAP
   useEffect(() => {
@@ -95,51 +116,116 @@ function App() {
 
   // About Me image animation using GSAP
   useEffect(() => {
-    let currentFrame = 1;
+    const mm = gsap.matchMedia();
 
-    gsap.to(
-      {},
+    mm.add(
       {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          onUpdate: (self) => {
-            // const newFrame = Math.round(self.progress * (totalFrames - 1)) + 1;
-            const newFrame = Math.floor(self.progress * (totalFrames - 1)) + 1;
-            if (newFrame !== currentFrame) {
-              currentFrame = newFrame;
-              const newSrc = `/imgs/animate/male${String(currentFrame).padStart(
-                4,
-                "0"
-              )}.png`;
-              console.log("Loading Image:", newSrc); // Debugging output
-              requestAnimationFrame(() => {
-                imageRefAnimated.current.src = newSrc;
-              });
-            }
-          },
-        },
+        isMobile: "(max-width: 632px)", // Mobile breakpoint
+        isDesktop: "(min-width: 631px)", // Desktop breakpoint
+      },
+      (context) => {
+        const { isMobile, isDesktop } = context.conditions;
+
+        // Set different total frames
+        const totalFrames = isMobile ? 50 : 135; // Mobile has 50 frames, Desktop has 135
+
+        gsap.to(
+          {},
+          {
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: isMobile ? "top center" : "top top", // Different start points
+              end: isMobile ? "bottom center" : "bottom top", // Different end points
+              scrub: isMobile ? 0.7 : 1, // Different scrub values
+              onUpdate: (self) => {
+                const newFrame =
+                  Math.floor(self.progress * (totalFrames - 1)) + 1;
+
+                if (newFrame !== frameRef.current) {
+                  frameRef.current = newFrame;
+                  imageRefAnimated.current.src = `/imgs/animate/male${String(
+                    newFrame
+                  ).padStart(4, "0")}.png`;
+                }
+              },
+            },
+          }
+        );
       }
     );
+
+    return () => mm.revert(); // Cleanup on unmount
   }, []);
 
   // Blob animation using GSAP
   useEffect(() => {
-    // GSAP animation for scaling the blob as you scroll
-    gsap.to(blobRef.current, {
-      scale: 7, // Max scale
-      height: "40px",
-      top: "30%",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top center", // Start when the top of the container is at the bottom of the viewport
-        end: "bottom top", // End when the bottom of the container reaches the top of the viewport
-        scrub: true, // Smooth the animation based on the scroll position
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        isMobile: "(max-width: 768px)", // Mobile condition
+        isDesktop: "(min-width: 769px)", // Desktop condition
       },
-    });
+      (context) => {
+        const { isMobile, isDesktop } = context.conditions;
+
+        gsap.to(blobRef.current, {
+          scale: isMobile ? 4.5 : 7, // Scale 4.5x on mobile, 7x on desktop
+          height: "40px", // Adjust height
+          top: "30%", //  positioning
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top center", //scroll start points
+            end: "bottom top", // End animation the same way
+            scrub: true, // Keep scroll-based animation smooth
+          },
+        });
+      }
+    );
+
+    return () => mm.revert(); // Cleanup on unmount
   }, []);
+
+  // Form Submission
+  // Handling form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setFeedBack((prev) => !prev);
+    console.log(e.target);
+    console.log(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
+    try {
+      const response = await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        }
+      );
+
+      console.log(response?.text);
+
+      setFeedBack({
+        status: "success",
+        message: "Message was sent successfully!",
+      });
+    } catch (error) {
+      console.log("FAILED...", error);
+      setFeedBack({
+        status: "failed",
+        message: "Oops! something went wrong. :(",
+      });
+    }
+    setTimeout(() => {
+      setFeedBack(null);
+    }, 3000);
+  };
 
   {
     return (
@@ -152,10 +238,10 @@ function App() {
                 <h1>Asadu Stephen</h1>
                 <h3 className="fancy">Software Developer</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                  perferendis nam sunt repellat. Labore minima illum fuga quos
-                  officia accusantium pariatur distinctio quasi nesciunt
-                  deserunt.
+                  Crafting digital experiences that are as functional as they
+                  are beautiful. With over 3 years of turning ideas into
+                  interactive realities, I bridge the gap between design and
+                  development.
                 </p>
                 <div className="btn_wrap">
                   <Btn
@@ -194,19 +280,16 @@ function App() {
               <div className="text_wrap">
                 <h2>About Me</h2>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Numquam quisquam eos nemo expedita consequuntur hic eius
-                  cupiditate recusandae error iusto illum, pariatur nulla
-                  blanditiis minima et totam aspernatur, corrupti velit
-                  doloribus cum tenetur doloremque suscipit explicabo ab. Vero
-                  nam quia porro exercitationem odio, delectus perspiciatis est
-                  dolore esse tempora magni earum sunt accusamus fuga hic. Iusto
-                  sequi error tempora ipsam provident laboriosam odit veniam
-                  fugiat quam, omnis ducimus deleniti ipsum labore molestias
-                  voluptate assumenda illo maxime dignissimos? Harum beatae
-                  corporis expedita dolores saepe ducimus, qui eos perspiciatis
-                  impedit enim cumque. Accusamus atque dignissimos praesentium
-                  doloremque sunt dolorum nam maiores velit!
+                  I’m a passionate MERN stack developer with a love for clean
+                  code and pixel-perfect designs. Over the past 3 years, I’ve
+                  honed my skills in building scalable, user-friendly web
+                  applications that not only meet but exceed expectations. My
+                  toolkit includes MongoDB, Express.js, React, Node.js, and a
+                  sprinkle of Sass magic to bring style to functionality.
+                  Whether it’s a sleek front-end interface or a robust back-end
+                  system, I thrive on solving problems and creating seamless
+                  digital experiences. Let’s collaborate and turn your vision
+                  into reality!
                 </p>
                 <div className="btn_wrap">
                   <Btn
@@ -233,6 +316,10 @@ function App() {
         <section className="tech_stack">
           <div className="container">
             <h2>My Stack</h2>
+            <p className="tagline">
+              The tools I use to build, innovate, and create. From databases to
+              dynamic interfaces, I’ve got the tech to power your next big idea.
+            </p>
             <div className="stacks cards">
               {myStack.map((stack, id) => (
                 <div key={id} className="stack card">
@@ -261,11 +348,9 @@ function App() {
               <span className="style1">Think It,</span>
               <span className="style2">I Build It</span>
             </h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem,
-              eligendi rerum obcaecati perferendis voluptatum iusto facere
-              possimus atque aperiam iste voluptates enim modi, molestiae
-              laudantium.
+            <p className="tagline">
+              Transforming concepts into captivating digital experiences, one
+              project at a time.
             </p>
 
             <div className="projects cards">
@@ -311,7 +396,7 @@ function App() {
         <section className="form-section">
           <div className="container">
             <div className="left">
-              <h4>Get in touch</h4>
+              <h4 onClick={handleSubmit}>Get in touch</h4>
               <div className="caption">
                 <h2>
                   Lets Discuss your <br /> project ideas
@@ -336,7 +421,7 @@ function App() {
             </div>
             <div className="seperator"></div>
             <div className="right">
-              <form action="">
+              <form onSubmit={handleSubmit} ref={form}>
                 <div className="input_grp">
                   <div>
                     <label htmlFor="name">Name</label>
@@ -345,6 +430,7 @@ function App() {
                       name="name"
                       id="name"
                       placeholder="Enter name"
+                      required
                     />
                   </div>
                   <div>
@@ -354,6 +440,7 @@ function App() {
                       name="email"
                       id="email"
                       placeholder="Enter email"
+                      required
                     />
                   </div>
                 </div>
@@ -364,6 +451,7 @@ function App() {
                     name="subject"
                     id="subject"
                     placeholder="Your idea"
+                    required
                   />
                 </div>
                 <div className="row">
@@ -372,18 +460,36 @@ function App() {
                     name="message"
                     id="message"
                     placeholder="Leave me a message..."
+                    required
                   ></textarea>
                 </div>
                 <div className="row">
                   <Btn type={"secondary"} btnText="Send Message" />
                 </div>
               </form>
+
+              <p
+                className={
+                  feedBack?.status
+                    ? `feedback active ${feedBack?.status}`
+                    : "feedback"
+                }
+              >
+                {" "}
+                {feedBack?.message || ""}
+              </p>
             </div>
           </div>
         </section>
         <div className="divider"></div>
 
         <footer>
+          <button
+            onClick={scrollToTop}
+            className={`${isVisible ? "show" : ""}`}
+          >
+            ↑
+          </button>
           <div className="container">
             <p>
               Copyright &copy; {new Date().getFullYear()}. All Rights Reserved.

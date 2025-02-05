@@ -24,6 +24,8 @@
   padding: 0;
   margin: 0;
   cursor: url("imgs/cursor.png"), auto;
+  font-family: "Smooch Sans",serif;
+
 }
 
 #root {
@@ -31,6 +33,7 @@
   height: fit-content;
   margin: 0 auto;
   text-align: center;
+  overflow-x: hidden;
   /* border: 1px solid red; */
 }
 
@@ -46,11 +49,15 @@
 }
 p {
   line-height: 1.4;
-  letter-spacing: 1.2px;
+  /* letter-spacing: .4px; */
+  font-size: 1.3rem;
+}
+p.tagline {
+  max-width: 60%;
 }
 h2 {
   font-size: 2.5rem;
-  font-family: "dancing script";
+  font-family: "dancing script",serif;
 }
 .btn_wrap {
   padding: 0.5rem;
@@ -62,7 +69,6 @@ h2 {
 }
 .divider {
   height: 180px;
-  width: 50%;
 }
 
 /* Fliping */
@@ -94,11 +100,6 @@ h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transform-origin: center; /* Ensures even flipping */
 }
-
-.card-front {
-  /* background-color: teal; */
-}
-
 .card-back {
   background-color: #213547;
   padding: 0.2rem;
@@ -109,7 +110,7 @@ h2 {
 
 /* --------Hero Section-------- */
 .hero {
-  height: 100dvh;
+  max-height: 100dvh;
 }
 /* ///////// Hero Left ///////// */
 .hero .left {
@@ -124,7 +125,6 @@ h2 {
 }
 .hero .left .text_wrap h4,
 .hero .left .text_wrap h1 {
-  font-family: "Smooch Sans", serif;
   margin-bottom: -0.5rem;
 }
 .hero .left .text_wrap h1 {
@@ -156,7 +156,7 @@ h2 {
 
 /* --------About Section-------- */
 .about {
-  height: 100dvh;
+  max-height: 100dvh;
 }
 
 /* ///////// About Right ///////// */
@@ -174,9 +174,6 @@ h2 {
   gap: 20px;
 }
 
-.about .right .text_wrap p {
-  text-align: justify;
-}
 .about .right .text_wrap .btn_wrap {
   justify-content: start;
 }
@@ -186,7 +183,7 @@ h2 {
 .about .left {
   padding-left: 2rem;
   overflow: hidden;
-  height: 100%;
+  height: 500px;
 }
 .about .left .img_wrap {
   position: relative;
@@ -222,7 +219,7 @@ h2 {
 
 /* --------Tech-Stack Section-------- */
 .tech_stack {
-  min-height: 50dvh;
+  max-height: 50dvh;
   padding-block: 2rem;
 }
 .tech_stack .container {
@@ -253,7 +250,7 @@ h2 {
 
 /* --------Project Section-------- */
 .project {
-  min-height: 100dvh;
+  max-height: 100dvh;
 }
 .project .container {
   display: block;
@@ -364,7 +361,7 @@ h2 {
 
 /* --------Form Section-------- */
 .form-section {
-  height: 100dvh;
+  max-height: 100dvh;
 }
 
 .form-section .left {
@@ -376,7 +373,6 @@ h2 {
   position: relative;
 }
 .form-section .left h4 {
-  font-family: "Smooch Sans";
   font-size: 1.3rem;
   letter-spacing: 3px;
 }
@@ -415,7 +411,6 @@ h2 {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-family: "Smooch Sans";
   letter-spacing: 1.2px;
   border: 1px solid #ccc;
   height: 40px;
@@ -435,12 +430,12 @@ h2 {
 
 .form-section .seperator {
   width: 0.5px;
-  height: 100%;
+  max-height: 100%;
   background-color: teal;
-  margin: auto;
 }
 .form-section .right {
   flex: 1.5;
+  position: relative;
 }
 .form-section form {
   width: 90%;
@@ -487,16 +482,53 @@ h2 {
   text-align: justify;
 }
 
+.form-section .right .feedback {
+  position: absolute;
+  bottom: 10px;
+  left: 20%;
+  right: -150%; /* Start off-screen */
+
+  transform: translateX(40%);
+  color: white;
+  padding: 0.3rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease, right 1s ease;
+}
+.form-section .right .feedback.active {
+  opacity: 1;
+  right: 25%; /*Moves to the visible area */
+}
+.form-section .right .feedback.success {
+  background-color: #4caf50;
+}
+.form-section .right .feedback.failed {
+  background-color: rgb(255, 4, 4);
+}
 /* xx--------Form Section--------xx */
 
 /* --------Footer Section-------- */
+footer button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: teal;
+  color: white;
+  position: fixed;
+  right: 3%;
+  bottom: 5%;
+  opacity: 0;
+}
+footer button.show {
+  opacity: 1;
+}
+
 footer .container {
   text-align: center;
 }
 footer .container p {
   margin: auto;
   padding-inline: 2rem;
-  font-family: "Smooch Sans";
 }
 
 /* xx--------Footer Section--------xx */
@@ -509,6 +541,9 @@ footer .container p {
   }
 
   /* --------Tech-Stack Section-------- */
+  .tech_stack {
+    max-height: fit-content;
+  }
   .tech_stack .stacks {
     flex-wrap: wrap;
     justify-content: center;
@@ -622,16 +657,16 @@ footer .container p {
     width: 100%;
     height: 100%;
   }
-  .about .right .text_wrap p {
-    font-size: 0.95rem;
-    margin-block: auto;
-  }
 
   .about .right .btn_wrap {
     margin-top: 0;
     padding: 0;
   }
   /* --------Projects Section-------- */
+  .projects .proj .card-back {
+    overflow-y: auto;
+    padding-top: 2rem;
+  }
   .projects .proj .card-back a button {
     height: 30px;
   }
@@ -652,6 +687,15 @@ footer .container p {
     height: 100%;
     width: 100%;
   }
+
+  .form-section .right .feedback {
+    bottom: -40px;
+    left: -10%;
+    transform: translateX(20%);
+  }
+  .form-section .right .feedback.active {
+    right: 20%;
+  }
 }
 
 @media (max-width: 736px) {
@@ -666,6 +710,9 @@ footer .container p {
   }
 
   /* --------Projects Section-------- */
+  .project {
+    max-height: fit-content;
+  }
   .project .projects {
     flex-wrap: wrap;
     justify-content: center;
@@ -676,13 +723,21 @@ footer .container p {
   .project p {
     width: 90%;
   }
+  .projects .proj .card-back .stacks {
+    margin-bottom: 1rem;
+  }
+  .projects .proj .card-back button {
+    margin-top: 1rem;
+  }
   .projects .proj .card-back p {
     padding: 0;
   }
+
   .projects .proj {
     width: 49%;
   }
   /* --------Form Section-------- */
+
   .form-section .right form input {
     height: 30px;
   }
@@ -706,9 +761,12 @@ footer .container p {
   .divider {
     height: 100px;
   }
+  p.tagline {
+    max-width: 90%;
+  }
   /* --------Hero Section-------- */
   .hero {
-    height: fit-content;
+    max-height: fit-content;
   }
   .hero .container {
     flex-direction: column-reverse;
@@ -731,7 +789,7 @@ footer .container p {
 
   /* --------About Me Section-------- */
   .about {
-    height: fit-content;
+    max-height: fit-content;
   }
   .about .container {
     flex-direction: column;
@@ -758,9 +816,16 @@ footer .container p {
     justify-content: center;
     margin-top: 1rem;
   }
+  /* --------Tech Stack Section-------- */
+  .tech_stack p#stack_tagline {
+    max-width: 90%;
+  }
+
+  /* --------Projects Section-------- */
+  .project
   /* --------Form Section-------- */
   .form-section {
-    height: fit-content;
+    min-height: fit-content;
   }
   .form-section .left {
     min-height: 200px;
@@ -774,6 +839,15 @@ footer .container p {
     transform: rotate(-25deg);
     height: 40px;
     width: 40px;
+  }
+  .form-section .right label {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+  .form-section .right .feedback {
+    left: -20%;
+    padding: 0.2rem 0;
   }
 }
 
@@ -792,9 +866,11 @@ footer .container p {
   .projects .proj .card-front img:hover {
     transform: translateY(-50px);
   }
+
   /* --------Form Section-------- */
   .form-section .left .caption img {
-    left: 4%;
+    top: 45%;
+    left: 17%;
   }
 }
 
