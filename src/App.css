@@ -143,7 +143,7 @@ h2 {
   background-color: teal;
 }
 .hero .right .img_wrap {
-  height: 100%;
+  height: 500px;
   width: 100%;
 }
 .hero .right .img_wrap img {
@@ -182,7 +182,7 @@ h2 {
 .about .left {
   padding-left: 2rem;
   overflow: hidden;
-  height: 500px;
+  height: 600px;
 }
 .about .left .img_wrap {
   position: relative;

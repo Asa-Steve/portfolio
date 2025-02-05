@@ -139,7 +139,7 @@ function App() {
               trigger: containerRef.current,
               start: isMobile ? "top center" : "top top", // Different start points
               end: isMobile ? "bottom center" : "bottom top", // Different end points
-              scrub: isMobile ? 0.7 : 1, // Different scrub values
+              scrub: isMobile ? 0.1 : 0.3, // Different scrub values
               onUpdate: (self) => {
                 const newFrame =
                   Math.floor(self.progress * (totalFrames - 1)) + 1;
@@ -156,8 +156,6 @@ function App() {
             },
           }
         );
-        // **Force ScrollTrigger to recalculate everything**
-        ScrollTrigger.refresh();
       }
     );
 
