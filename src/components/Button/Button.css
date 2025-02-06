@@ -61,3 +61,13 @@ button.secondary:hover::before {
   height: 100%;
   background-color: #213547;
 }
+
+/* ////// Hero Buttons Second////// */
+button:disabled {
+  background-color: rgba(255, 255, 255, 0.087);
+  color: white;
+}
+
+button:disabled:hover::before {
+  background-color: initial;
+}

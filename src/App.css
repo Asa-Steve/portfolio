@@ -32,8 +32,18 @@
   height: fit-content;
   margin: 0 auto;
   text-align: center;
-  overflow-x: hidden;
-  /* border: 1px solid red; */
+}
+html {
+  scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+}
+
+.hide {
+  display: none !important;
+}
+.show {
+  right: 0% !important;
+  width: 100% !important;
+  display: flex !important;
 }
 
 .container {
@@ -69,9 +79,12 @@ h2 {
 .divider {
   height: 180px;
 }
-
+.fancy {
+  margin-bottom: 1rem;
+  font-family: "dancing script", serif;
+  color: teal;
+}
 /* Fliping */
-
 .cards {
   display: flex;
   perspective: 1000px;
@@ -107,10 +120,185 @@ h2 {
   transform: rotateY(180deg);
 }
 
+.overlay {
+  position: fixed; /* Sticks to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Example dark overlay */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 99;
+  display: none;
+}
+
+/* --------Header/Nav Section-------- */
+header {
+  height: 60px;
+  position: sticky;
+  top: 0px;
+  z-index: 3000;
+  background-color: #ffffff16;
+  backdrop-filter: blur(20px);
+}
+header nav.container {
+  height: 100%;
+  justify-content: space-between;
+  padding: 0;
+}
+header .logo {
+  width: 300px;
+}
+header .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+header .clip {
+  width: 75%;
+  clip-path: polygon(0 50%, 5% 0, 100% 0, 100% 100%, 5% 100%);
+  /* justify-items: end; */
+  background-color: teal;
+  transition: all 0.6s ease;
+  position: relative;
+  display: flex;
+  justify-content: end;
+}
+header .links {
+  background-color: #213547;
+  clip-path: polygon(0 50%, 5% 0, 100% 0, 100% 100%, 5% 100%);
+  padding-inline: 2rem;
+  display: flex;
+  width: 900px;
+  height: 100%;
+  justify-content: flex-end;
+
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+header .links::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  height: 0px;
+  width: 100%;
+  transition: all 0.6s ease;
+  z-index: 2;
+}
+header .links:hover::after {
+  background-color: teal;
+  height: 30px;
+}
+header .clip:hover {
+  width: 73%;
+}
+
+header .clip .links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.4rem;
+  display: block;
+  width: 100px;
+  /* border: 1px solid white; */
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+header .clip .links a:last-of-type {
+  width: 150px;
+}
+header .clip .links a span {
+  position: relative;
+  z-index: 30;
+}
+header .links a::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+header .links a:hover::after {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+header .links a:hover span {
+  color: #213547;
+}
+header .links_mb {
+  display: none;
+}
+header .mb_menu {
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  width: 0%;
+  height: calc(100vh - 60px);
+  z-index: 9999;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+header .mb_menu a {
+  font-size: 2rem;
+  padding: 0.5rem 0;
+  display: none;
+  justify-content: center;
+  color: white;
+}
+header .mb_menu a:hover {
+  background-color: #213547;
+}
+
+/* xx--------Header/Nav Section--------xx */
+header .toggler_mb {
+  height: 20px;
+  width: 30px;
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+header .toggler_mb span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #213547;
+  transition: all 0.3s ease;
+}
+header .toggler_mb.active span:first-of-type {
+  margin-left: 1rem;
+  width: 80%;
+}
+header .toggler_mb.active span:nth-of-type(2) {
+  width: 50%;
+}
+header .toggler_mb.active span:last-of-type {
+  margin-right: 1rem;
+  width: 80%;
+}
+
 /* --------Hero Section-------- */
 .hero {
-  max-height: 100dvh;
+  height: 600px;
 }
+
 /* ///////// Hero Left ///////// */
 .hero .left {
   flex: 1;
@@ -129,21 +317,17 @@ h2 {
 .hero .left .text_wrap h1 {
   font-size: 4rem;
 }
-.hero .left .text_wrap .fancy {
-  margin-bottom: 1rem;
-  font-family: "dancing script", serif;
-  color: teal;
-}
+
 
 /* ///////// Hero Right ///////// */
 
 .hero .right {
   flex: 1;
-  clip-path: polygon(0 51%, 20% 0, 100% 0, 100% 100%, 20% 100%);
+  clip-path: polygon(0 50%, 20% 0, 100% 0, 100% 100%, 20% 100%);
   background-color: teal;
 }
 .hero .right .img_wrap {
-  height: 500px;
+  height: 100%;
   width: 100%;
 }
 .hero .right .img_wrap img {
@@ -361,6 +545,7 @@ h2 {
 /* --------Form Section-------- */
 .form-section {
   max-height: 100dvh;
+  overflow: hidden;
 }
 
 .form-section .left {
@@ -518,7 +703,7 @@ footer button {
   bottom: 5%;
   opacity: 0;
 }
-footer button.show {
+footer button.totop {
   opacity: 1;
 }
 
@@ -617,6 +802,27 @@ footer .container p {
   .btn_wrap span {
     font-size: 1rem;
   }
+
+  /* --------Header/Nav Section-------- */
+  header .clip .links {
+    padding-inline-end: 1rem;
+  }
+  header .clip .links a {
+    /* text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+    display: block;
+    width: 100px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10; */
+    border: 1px solid white;
+    font-size: 1.2rem;
+    width: 80px;
+  }
+  header .clip .links a:last-of-type {
+    width: 150px;
+  }
   /* --------Hero Section-------- */
   .hero .left {
     width: 300px;
@@ -671,7 +877,9 @@ footer .container p {
   }
 
   /* --------Form Section-------- */
-
+  /* .form-section {
+    overflow-x: hidden;
+  } */
   .form-section .left .info span {
     height: 30px;
     background-color: #fff;
@@ -698,6 +906,31 @@ footer .container p {
 }
 
 @media (max-width: 736px) {
+  /* --------Header/Nav Section-------- */
+  header .clip {
+    background-color: #213547;
+    padding-inline-end: 1rem;
+    border: 3px solid green;
+    display: none;
+  }
+
+  /* Header/Nav Mobile */
+  header .links_mb {
+    display: flex;
+    width: 60%;
+    justify-content: flex-end;
+    padding-inline-end: 1rem;
+  }
+  header .logo {
+    width: 40%;
+  }
+  .overlay {
+    display: initial;
+  }
+  header .links_mb .mb_menu.show {
+    width: 50% !important;
+  }
+
   /* --------Hero Section-------- */
   .hero .left .text_wrap h1 {
     font-size: 2.6rem;
@@ -735,8 +968,8 @@ footer .container p {
   .projects .proj {
     width: 49%;
   }
-  /* --------Form Section-------- */
 
+  /* --------Form Section-------- */
   .form-section .right form input {
     height: 30px;
   }
@@ -763,9 +996,15 @@ footer .container p {
   p.tagline {
     max-width: 90%;
   }
+  /* --------Header/Nav Section-------- */
+
+  header .links_mb .mb_menu.show {
+    width: 100% !important;
+  }
+
   /* --------Hero Section-------- */
   .hero {
-    max-height: fit-content;
+    height: fit-content;
   }
   .hero .container {
     flex-direction: column-reverse;
@@ -785,7 +1024,6 @@ footer .container p {
     object-position: 50% 25%;
     width: 75%;
   }
-
   /* --------About Me Section-------- */
   .about {
     max-height: fit-content;
@@ -831,6 +1069,8 @@ footer .container p {
   }
   .form-section .container {
     flex-direction: column;
+    overflow: hidden;
+    padding-block: 3rem !important;
   }
   .form-section .left .caption img {
     top: 20%;
@@ -839,10 +1079,17 @@ footer .container p {
     height: 40px;
     width: 40px;
   }
+
+  .form-section .right {
+    height: fit-content;
+  }
   .form-section .right label {
     font-size: 1rem;
     margin-bottom: 0.2rem;
     display: block;
+  }
+  .form-section .right form {
+    padding-block-end: 1rem;
   }
   .form-section .right .feedback {
     left: -20%;
@@ -867,6 +1114,7 @@ footer .container p {
   }
 
   /* --------Form Section-------- */
+
   .form-section .left .caption img {
     top: 45%;
     left: 17%;

@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Btn from "./components/Button/Button";
-
+import { Link, Element } from "react-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -37,7 +37,7 @@ const Projects = [
   {
     img: "alt",
     stack: ["Wordpress"],
-    desc: "Developed a church management system that facilitates <b> donations, mass requests, and infant baptism registrations. </b>The platform provides a seamless user experience with a clean UI, secure backend operations, and email notifications. It integrates <b>payment processing </b>for donations and registrations while ensuring efficient data management with MongoDB.",
+    desc: "A WordPress-powered platform for the University of Nigeria Alt Protein Project, dedicated to educating and connecting future scientists, innovators, and entrepreneurs. The project promotes sustainable and ethical food systems by advancing alternative protein research and development in Nigeria.",
     URL: "https://altproteinunn.com/",
   },
   {
@@ -49,7 +49,7 @@ const Projects = [
   {
     img: "primeside",
     stack: ["Wordpress"],
-    desc: "Developed a church management system that facilitates <b> donations, mass requests, and infant baptism registrations. </b>The platform provides a seamless user experience with a clean UI, secure backend operations, and email notifications. It integrates <b>payment processing </b>for donations and registrations while ensuring efficient data management with MongoDB.",
+    desc: "A WordPress-based platform dedicated to skincare education, empowering over 10,000 individuals to create safe and natural skincare products. The project offers free YouTube videos, eBooks, paid classes, and premium organic ingredients, making skincare formulation accessible for both personal and commercial use.",
     URL: "https://theprimeside.com/",
   },
 ];
@@ -58,6 +58,7 @@ function App() {
   const [flipId, setFlipId] = useState(null);
   const [feedBack, setFeedBack] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   // hero image ref
   const imageRef = useRef(null);
@@ -88,6 +89,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    toggle
+      ? (window.document.body.style.overflow = "hidden")
+      : (window.document.body.style.overflow = "visible");
+  }, [toggle]);
+
   // Hero image animation using GSAP
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -116,7 +123,6 @@ function App() {
   }, []);
 
   // About Me image animation using GSAP
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -193,7 +199,6 @@ function App() {
     return () => mm.revert(); // ✅ 6. Cleanup when unmounting or resizing
   }, []);
 
-  
   // Blob animation using GSAP
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -266,266 +271,383 @@ function App() {
     }, 3000);
   };
 
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
+  };
+
   {
     return (
       <>
-        <section className="hero">
-          <div className="container">
-            <div className="left">
-              <div className="text_wrap">
-                <h4>Hi, My name is </h4>
-                <h1>Asadu Stephen</h1>
-                <h3 className="fancy">Software Developer</h3>
-                <p>
-                  Crafting digital experiences that are as functional as they
-                  are beautiful. With over 3 years of turning ideas into
-                  interactive realities, I bridge the gap between design and
-                  development.
-                </p>
-                <div className="btn_wrap">
-                  <Btn
-                    btnText="Hire Me"
-                    bgColor={"#213547 "}
-                    color={"white"}
-                    type={"primary"}
-                  />
-                  <Btn btnText="Connect with me" type={"secondary"} />
+        <div className={toggle ? "overlay" : ""}></div>
+        <header>
+          <nav className="container">
+            <div className="logo">
+              <img src="/imgs/logo.png" alt="" />
+            </div>
+            <div className="clip">
+              <div className="links">
+                <Link to="home" smooth={true} duration={200} offset={-60}>
+                  <span>Home</span>
+                </Link>
+                <Link to="about" smooth={true} duration={200} offset={-60}>
+                  <span>About Me</span>
+                </Link>
+                <Link to="tech-stack" smooth={true} duration={200} offset={-60}>
+                  <span>Tech Stack</span>
+                </Link>
+                <Link to="projects" smooth={true} duration={200} offset={-60}>
+                  <span>Projects</span>
+                </Link>
+                <Link to="connect" smooth={true} duration={200} offset={-60}>
+                  <span>Connect with Me</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="links_mb">
+              <div
+                className={toggle ? `toggler_mb active` : "toggler_mb"}
+                onClick={handleToggle}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div className={toggle ? `mb_menu show` : "mb_menu"}>
+                <Link
+                  className={toggle ? "show" : ""}
+                  onClick={handleToggle}
+                  to="home"
+                  smooth={true}
+                  duration={200}
+                  offset={-60}
+                >
+                  <span>Home</span>
+                </Link>
+                <Link
+                  className={toggle ? "show" : ""}
+                  onClick={handleToggle}
+                  to="about"
+                  smooth={true}
+                  duration={200}
+                  offset={-60}
+                >
+                  <span>About Me</span>
+                </Link>
+                <Link
+                  className={toggle ? "show" : ""}
+                  onClick={handleToggle}
+                  to="tech-stack"
+                  smooth={true}
+                  duration={200}
+                  offset={-60}
+                >
+                  <span>Tech Stack</span>
+                </Link>
+                <Link
+                  className={toggle ? "show" : ""}
+                  onClick={handleToggle}
+                  to="projects"
+                  smooth={true}
+                  duration={200}
+                  offset={-60}
+                >
+                  <span>Projects</span>
+                </Link>
+                <Link
+                  className={toggle ? "show" : ""}
+                  onClick={handleToggle}
+                  to="connect"
+                  smooth={true}
+                  duration={200}
+                  offset={-60}
+                >
+                  <span>Connect with Me</span>
+                </Link>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <Element name="home">
+          <section className="hero">
+            <div className="container">
+              <div className="left">
+                <div className="text_wrap">
+                  <h4>Hi, My name is </h4>
+                  <h1>Asadu Stephen</h1>
+                  <h3 className="fancy">Software Developer</h3>
+                  <p>
+                    Crafting digital experiences that are as functional as they
+                    are beautiful. With over 3 years of turning ideas into
+                    interactive realities, I bridge the gap between design and
+                    development.
+                  </p>
+                  <div className="btn_wrap">
+                    <Btn
+                      btnText="Hire Me"
+                      bgColor={"#213547 "}
+                      color={"white"}
+                      type={"primary"}
+                    />
+                    <Btn btnText="Connect with me" type={"secondary"} />
+                  </div>
+                </div>
+              </div>
+              <div className="right">
+                <div className="img_wrap">
+                  <img src="/imgs/hero.png" alt="hero-img" ref={imageRef} />
                 </div>
               </div>
             </div>
-            <div className="right">
-              <div className="img_wrap">
-                <img src="/imgs/hero.png" alt="hero-img" ref={imageRef} />
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        </Element>
 
         <div className="divider" ref={containerRef}></div>
 
-        <section className="about">
-          <div className="container">
-            <div className="left">
-              <div className="img_wrap">
-                <div className="blob" ref={blobRef}></div>
-                <img
-                  src={`/imgs/animate/male0001.png`} // Dynamically load images
-                  alt="Animated Portrait"
-                  ref={imageRefAnimated}
-                />
-              </div>
-            </div>
-            <div className="right">
-              <div className="text_wrap">
-                <h2>About Me</h2>
-                <p>
-                  I’m a passionate MERN stack developer with a love for clean
-                  code and pixel-perfect designs. Over the past 3 years, I’ve
-                  honed my skills in building scalable, user-friendly web
-                  applications that not only meet but exceed expectations. My
-                  toolkit includes MongoDB, Express.js, React, Node.js, and a
-                  sprinkle of Sass magic to bring style to functionality.
-                  Whether it’s a sleek front-end interface or a robust back-end
-                  system, I thrive on solving problems and creating seamless
-                  digital experiences. Let’s collaborate and turn your vision
-                  into reality!
-                </p>
-                <div className="btn_wrap">
-                  <Btn
-                    color={"white"}
-                    bgColor={"black"}
-                    type={"primary"}
-                    btnText="Hire Me"
+        <Element name="about">
+          <section className="about">
+            <div className="container">
+              <div className="left">
+                <div className="img_wrap">
+                  <div className="blob" ref={blobRef}></div>
+                  <img
+                    src={`/imgs/animate/male0001.png`} // Dynamically load images
+                    alt="Animated Portrait"
+                    ref={imageRefAnimated}
                   />
-                  <a
-                    href="https://drive.google.com/file/d/1qkGF1-b7W_XIyh2AUYThwzN1QRtvEqfH/view?usp=drivesdk"
-                    download={"Asadu Stephen CV.pdf"}
-                    target="_blank"
-                  >
-                    <Btn type={"secondary"} btnText="Download CV" />
-                  </a>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="divider"></div>
-
-        <section className="tech_stack">
-          <div className="container">
-            <h2>My Stack</h2>
-            <p className="tagline">
-              The tools I use to build, innovate, and create. From databases to
-              dynamic interfaces, I’ve got the tech to power your next big idea.
-            </p>
-            <div className="stacks cards">
-              {myStack.map((stack, id) => (
-                <div key={id} className="stack card">
-                  <div className="card-front">
-                    <img
-                      src={`/imgs/${stack.img}.png`}
-                      alt={`${stack}-logo`}
-                      loading="lazy"
+              <div className="right">
+                <div className="text_wrap">
+                  <h2>About Me</h2>
+                  <p>
+                    I’m a passionate MERN stack developer with a love for clean
+                    code and pixel-perfect designs. Over the past 3 years, I’ve
+                    honed my skills in building scalable, user-friendly web
+                    applications that not only meet but exceed expectations. My
+                    toolkit{" "}
+                    <span className="fancy" style={{ fontWeight: "bold" }}>
+                      {" "}
+                      MongoDB, Express.js, React, Node.js
+                    </span>
+                    , and a sprinkle of{" "}
+                    <span className="fancy" style={{ fontWeight: "bold" }}>
+                      {" "}
+                      Sass{" "}
+                    </span>{" "}
+                    magic to bring style to functionality. Whether it’s a sleek
+                    front-end interface or a robust back-end system, I thrive on
+                    solving problems and creating seamless digital experiences.
+                    Let’s collaborate and turn your vision into reality!
+                  </p>
+                  <div className="btn_wrap">
+                    <Btn
+                      color={"white"}
+                      bgColor={"black"}
+                      type={"primary"}
+                      btnText="Hire Me"
                     />
-                  </div>
-                  <div className="card-back">
-                    <h5>{stack.name}</h5>
-                    <p>{stack.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="divider"></div>
-
-        <section className="project">
-          <div className="container">
-            <h2>
-              <span className="style1">Think It,</span>
-              <span className="style2">I Build It</span>
-            </h2>
-            <p className="tagline">
-              Transforming concepts into captivating digital experiences, one
-              project at a time.
-            </p>
-
-            <div className="projects cards">
-              {Projects.map((project, id) => (
-                <div
-                  className={
-                    !(flipId === id) ? "proj card" : "proj card active"
-                  }
-                  onClick={() =>
-                    flipId === id ? setFlipId(null) : setFlipId((prev) => id)
-                  }
-                  key={id}
-                >
-                  <div className="card-front">
-                    <div className="top">
-                      {new Array(3).fill(null).map((_, index) => (
-                        <span key={index}></span>
-                      ))}
-                    </div>
-                    <div className="img_wrap">
-                      <img src={`/imgs/projects/${project.img}.png`} alt="" />
-                    </div>
-                  </div>
-                  <div className="card-back">
-                    <div className="stacks">
-                      {project.stack.map((stack, id) => (
-                        <span key={id}>{stack}</span>
-                      ))}
-                    </div>
-                    <p dangerouslySetInnerHTML={{ __html: project.desc }}></p>
-                    <a href={`${project.URL}`}>
-                      <Btn btnText="View Project" type={"secondary"} />
+                    <a
+                      href="https://drive.google.com/file/d/1qkGF1-b7W_XIyh2AUYThwzN1QRtvEqfH/view?usp=drivesdk"
+                      download={"Asadu Stephen CV.pdf"}
+                      target="_blank"
+                    >
+                      <Btn type={"secondary"} btnText="Download CV" />
                     </a>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </Element>
 
         <div className="divider"></div>
 
-        <section className="form-section">
-          <div className="container">
-            <div className="left">
-              <h4 onClick={handleSubmit}>Get in touch</h4>
-              <div className="caption">
-                <h2>
-                  Lets Discuss your <br /> project ideas
-                </h2>
-                <img src="/imgs/idea.png" alt="light-bulb" />
-              </div>
-              <h4>Today !</h4>
-
-              <div className="info">
-                <span>
-                  <img src="/imgs/ph.gif" alt="phone-img" /> 09167670473
-                </span>
-                <span>
-                  <img src="/imgs/mail.gif" alt="mail-img" />
-                  asadusteve456@gmail.com
-                </span>
-                <span>
-                  <img src="/imgs/pin.gif" alt="pin" />
-                  Yenagoa, Bayelsa State
-                </span>
-              </div>
-            </div>
-            <div className="seperator"></div>
-            <div className="right">
-              <form onSubmit={handleSubmit} ref={form}>
-                <div className="input_grp">
-                  <div>
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Enter name"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      placeholder="Enter email"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <label htmlFor="subject">Subject</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    placeholder="Your idea"
-                    required
-                  />
-                </div>
-                <div className="row">
-                  <label htmlFor="message">Message</label>
-                  <textarea
-                    name="message"
-                    id="message"
-                    placeholder="Leave me a message..."
-                    required
-                  ></textarea>
-                </div>
-                <div className="row">
-                  <Btn type={"secondary"} btnText="Send Message" />
-                </div>
-              </form>
-
-              <p
-                className={
-                  feedBack?.status
-                    ? `feedback active ${feedBack?.status}`
-                    : "feedback"
-                }
-              >
-                {" "}
-                {feedBack?.message || ""}
+        <Element name="tech-stack">
+          <section className="tech_stack">
+            <div className="container">
+              <h2>My Stack</h2>
+              <p className="tagline">
+                The tools I use to build, innovate, and create. From databases
+                to dynamic interfaces, I’ve got the tech to power your next big
+                idea.
               </p>
+              <div className="stacks cards">
+                {myStack.map((stack, id) => (
+                  <div key={id} className="stack card">
+                    <div className="card-front">
+                      <img
+                        src={`/imgs/${stack.img}.png`}
+                        alt={`${stack}-logo`}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="card-back">
+                      <h5>{stack.name}</h5>
+                      <p>{stack.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </Element>
+
+        <div className="divider"></div>
+
+        <Element name="projects">
+          <section className="project">
+            <div className="container">
+              <h2>
+                <span className="style1">Think It,</span>
+                <span className="style2">I Build It</span>
+              </h2>
+              <p className="tagline">
+                Transforming concepts into captivating digital experiences, one
+                project at a time.
+              </p>
+
+              <div className="projects cards">
+                {Projects.map((project, id) => (
+                  <div
+                    className={
+                      !(flipId === id) ? "proj card" : "proj card active"
+                    }
+                    onClick={() =>
+                      flipId === id ? setFlipId(null) : setFlipId((prev) => id)
+                    }
+                    key={id}
+                  >
+                    <div className="card-front">
+                      <div className="top">
+                        {new Array(3).fill(null).map((_, index) => (
+                          <span key={index}></span>
+                        ))}
+                      </div>
+                      <div className="img_wrap">
+                        <img src={`/imgs/projects/${project.img}.png`} alt="" />
+                      </div>
+                    </div>
+                    <div className="card-back">
+                      <div className="stacks">
+                        {project.stack.map((stack, id) => (
+                          <span key={id}>{stack}</span>
+                        ))}
+                      </div>
+                      <p dangerouslySetInnerHTML={{ __html: project.desc }}></p>
+                      <a href={`${project.URL}`} target="_blank">
+                        <Btn
+                          btnText={id === 2 ? "coming soon" : "View Project"}
+                          type={"secondary"}
+                          disable={id === 2}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </Element>
+
+        <div className="divider"></div>
+
+        <Element name="connect">
+          <section className="form-section">
+            <div className="container">
+              <div className="left">
+                <h4 onClick={handleSubmit}>Get in touch</h4>
+                <div className="caption">
+                  <h2>
+                    Lets Discuss your <br /> project ideas
+                  </h2>
+                  <img src="/imgs/idea.png" alt="light-bulb" />
+                </div>
+                <h4>Today !</h4>
+
+                <div className="info">
+                  <span>
+                    <img src="/imgs/ph.gif" alt="phone-img" /> 09167670473
+                  </span>
+                  <span>
+                    <img src="/imgs/mail.gif" alt="mail-img" />
+                    asadusteve456@gmail.com
+                  </span>
+                  <span>
+                    <img src="/imgs/pin.gif" alt="pin" />
+                    Yenagoa, Bayelsa State
+                  </span>
+                </div>
+              </div>
+              <div className="seperator"></div>
+              <div className="right">
+                <form onSubmit={handleSubmit} ref={form}>
+                  <div className="input_grp">
+                    <div>
+                      <label htmlFor="name">Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Enter name"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="Enter email"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <label htmlFor="subject">Subject</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      id="subject"
+                      placeholder="Your idea"
+                      required
+                    />
+                  </div>
+                  <div className="row">
+                    <label htmlFor="message">Message</label>
+                    <textarea
+                      name="message"
+                      id="message"
+                      placeholder="Leave me a message..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div className="row">
+                    <Btn type={"secondary"} btnText="Send Message" />
+                  </div>
+                </form>
+                <p
+                  className={
+                    feedBack?.status
+                      ? `feedback active ${feedBack?.status}`
+                      : "feedback"
+                  }
+                >
+                  {" "}
+                  {feedBack?.message || ""}
+                </p>
+              </div>
+            </div>
+          </section>
+        </Element>
+
         <div className="divider"></div>
 
         <footer>
           <button
             onClick={scrollToTop}
-            className={`${isVisible ? "show" : ""}`}
+            className={`${isVisible ? "totop" : ""}`}
           >
             ↑
           </button>
