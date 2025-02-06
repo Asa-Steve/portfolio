@@ -254,6 +254,7 @@ function App() {
         message: "Message was sent successfully!",
       });
       setLoading(false);
+      form.current.reset();
     } catch (error) {
       setFeedBack({
         status: "failed",
@@ -665,7 +666,7 @@ function App() {
                     )}
                   </div>
                 </form>
-                
+
                 <p
                   className={
                     feedBack?.status
