@@ -298,7 +298,6 @@ header .toggler_mb.active span:last-of-type {
 .hero {
   height: 600px;
 }
-
 /* ///////// Hero Left ///////// */
 .hero .left {
   flex: 1;
@@ -317,7 +316,6 @@ header .toggler_mb.active span:last-of-type {
 .hero .left .text_wrap h1 {
   font-size: 4rem;
 }
-
 
 /* ///////// Hero Right ///////// */
 

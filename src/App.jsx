@@ -383,13 +383,27 @@ function App() {
                     development.
                   </p>
                   <div className="btn_wrap">
-                    <Btn
-                      btnText="Hire Me"
-                      bgColor={"#213547 "}
-                      color={"white"}
-                      type={"primary"}
-                    />
-                    <Btn btnText="Connect with me" type={"secondary"} />
+                    <Link
+                      to="connect"
+                      smooth={true}
+                      duration={200}
+                      offset={-60}
+                    >
+                      <Btn
+                        btnText="Hire Me"
+                        bgColor={"#213547"}
+                        color={"white"}
+                        type={"primary"}
+                      />
+                    </Link>
+                    <Link
+                      to="connect"
+                      smooth={true}
+                      duration={200}
+                      offset={-60}
+                    >
+                      <Btn btnText="Connect with me" type={"secondary"} />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -441,12 +455,20 @@ function App() {
                     Let’s collaborate and turn your vision into reality!
                   </p>
                   <div className="btn_wrap">
-                    <Btn
-                      color={"white"}
-                      bgColor={"black"}
-                      type={"primary"}
-                      btnText="Hire Me"
-                    />
+                    <Link
+                      to="connect"
+                      smooth={true}
+                      duration={200}
+                      offset={-60}
+                    >
+                      <Btn
+                        color={"white"}
+                        bgColor={"black"}
+                        type={"primary"}
+                        btnText="Hire Me"
+                      />
+                    </Link>
+
                     <a
                       href="https://drive.google.com/file/d/1qkGF1-b7W_XIyh2AUYThwzN1QRtvEqfH/view?usp=drivesdk"
                       download={"Asadu Stephen CV.pdf"}
@@ -553,7 +575,7 @@ function App() {
         <div className="divider"></div>
 
         <Element name="connect">
-          <section className="form-section">
+          <section className="form-section" id="connect">
             <div className="container">
               <div className="left">
                 <h4 onClick={handleSubmit}>Get in touch</h4>
