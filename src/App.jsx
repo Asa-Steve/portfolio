@@ -557,7 +557,10 @@ function App() {
                         ))}
                       </div>
                       <p dangerouslySetInnerHTML={{ __html: project.desc }}></p>
-                      <a href={`${project.URL}`} target="_blank">
+                      <a
+                        href={id === 2 ? "" : `${project.URL}`}
+                        target="_blank"
+                      >
                         <Btn
                           btnText={id === 2 ? "coming soon" : "View Project"}
                           type={"secondary"}
