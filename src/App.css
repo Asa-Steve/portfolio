@@ -663,7 +663,22 @@ header .toggler_mb.active span:last-of-type {
   font-size: 1.1rem;
   text-align: justify;
 }
-
+.form-section .right .row:last-of-type {
+  display: flex;
+  align-items: center;
+}
+.form-section .right .row:last-of-type .loader {
+  padding: 0.3rem 2rem;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+.form-section .right .row:last-of-type svg {
+  width: 30px;
+  height: 30px;
+}
 .form-section .right .feedback {
   position: absolute;
   bottom: 10px;
@@ -881,9 +896,6 @@ footer .container p {
   }
 
   /* --------Form Section-------- */
-  /* .form-section {
-    overflow-x: hidden;
-  } */
   .form-section .left .info span {
     height: 30px;
     background-color: #fff;
@@ -990,6 +1002,9 @@ footer .container p {
   }
   .form-section .left .caption img {
     right: -10px;
+  }
+  .form-section .right .feedback {
+    height: 33px;
   }
 }
 

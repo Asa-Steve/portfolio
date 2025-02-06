@@ -5,7 +5,7 @@ import Btn from "./components/Button/Button";
 import { Link, Element } from "react-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import { Puff } from "react-loader-spinner";
 const myStack = [
   {
     name: "MongoDB",
@@ -59,6 +59,7 @@ function App() {
   const [feedBack, setFeedBack] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // hero image ref
   const imageRef = useRef(null);
@@ -89,6 +90,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Toggler
   useEffect(() => {
     toggle
       ? (window.document.body.style.overflow = "hidden")
@@ -236,14 +238,8 @@ function App() {
     e.preventDefault();
 
     setFeedBack((prev) => !prev);
-    console.log(e.target);
-    console.log(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    );
-
     try {
+      setLoading(true);
       const response = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
@@ -253,18 +249,17 @@ function App() {
         }
       );
 
-      console.log(response?.text);
-
       setFeedBack({
         status: "success",
         message: "Message was sent successfully!",
       });
+      setLoading(false);
     } catch (error) {
-      console.log("FAILED...", error);
       setFeedBack({
         status: "failed",
         message: "Oops! something went wrong. :(",
       });
+      setLoading(false);
     }
     setTimeout(() => {
       setFeedBack(null);
@@ -273,6 +268,18 @@ function App() {
 
   const handleToggle = () => {
     setToggle((prev) => !prev);
+  };
+
+  const spiner = () => {
+    return render(
+      <Puff
+        visible={true}
+        color="#4fa94d"
+        ariaLabel="puff-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
+    );
   };
 
   {
@@ -621,7 +628,7 @@ function App() {
                     <div>
                       <label htmlFor="email">Email</label>
                       <input
-                        type="text"
+                        type="email"
                         name="email"
                         id="email"
                         placeholder="Enter email"
@@ -649,9 +656,16 @@ function App() {
                     ></textarea>
                   </div>
                   <div className="row">
-                    <Btn type={"secondary"} btnText="Send Message" />
+                    {loading ? (
+                      <div className="loader">
+                        <Puff />
+                      </div>
+                    ) : (
+                      <Btn type={"secondary"} btnText="Send Message" />
+                    )}
                   </div>
                 </form>
+                
                 <p
                   className={
                     feedBack?.status
