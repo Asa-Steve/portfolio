@@ -837,6 +837,9 @@ footer .container p {
   .hero .left .btn_wrap {
     width: 100%;
   }
+  .hero .left .btn_wrap button {
+    width: 120px;
+  }
 
   /* --------About Me Section-------- */
   .about .left {
@@ -862,8 +865,11 @@ footer .container p {
   }
 
   .about .right .btn_wrap {
-    margin-top: 0;
+    margin-top: 1rem;
     padding: 0;
+  }
+  .about .right .btn_wrap button {
+    width: 120px;
   }
   /* --------Projects Section-------- */
   .projects .proj .card-back {
