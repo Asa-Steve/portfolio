@@ -436,6 +436,9 @@ header .toggler_mb.active span:last-of-type {
 .project .container {
   display: block;
 }
+.project h2 span {
+  font-family: "dancing script", serif;
+}
 .project h2 .style1 {
   color: teal;
   margin-right: 1rem;
