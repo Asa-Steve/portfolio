@@ -612,7 +612,7 @@ function App() {
                       </div>
                       <p dangerouslySetInnerHTML={{ __html: project.desc }}></p>
                       <a
-                        href={id === 2 ? "" : `${project.URL}`}
+                        href={id === 3 ? "" : `${project.URL}`}
                         target="_blank"
                       >
                         <Btn
