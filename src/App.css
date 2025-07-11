@@ -431,7 +431,7 @@ header .toggler_mb.active span:last-of-type {
 
 /* --------Project Section-------- */
 .project {
-  max-height: 100dvh;
+  min-height: 100dvh;
 }
 .project .container {
   display: block;
@@ -450,14 +450,16 @@ header .toggler_mb.active span:last-of-type {
 }
 .project .projects {
   margin-top: 1rem;
-  height: 400px;
+  height: 900px;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 23px;
   justify-content: space-between;
   padding: 0.8rem;
 }
 .projects .proj {
   width: 32%;
-  height: 100%;
+  height: 300px;
 }
 .projects .proj:hover {
   transform: rotateY(0);
@@ -1081,7 +1083,6 @@ footer .container p {
   }
 
   /* --------Projects Section-------- */
-  .project
   /* --------Form Section-------- */
   .form-section {
     min-height: fit-content;

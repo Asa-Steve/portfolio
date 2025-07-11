@@ -6,16 +6,49 @@ import { Link, Element } from "react-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Puff } from "react-loader-spinner";
+// const oldStack = [
+//   {
+//     name: "MongoDB",
+//     img: "mongo",
+//     desc: "MongoDB is a NoSQL database that allows flexible and scalable data storage. I use it to build dynamic and fast applications.",
+//   },
+//   {
+//     name: "Express Js",
+//     img: "express",
+//     desc: "A minimalist Node.js framework that simplifies backend development and API creation.",
+//   },
+//   {
+//     name: "React Js",
+//     img: "react",
+//     desc: "A powerful JavaScript library for building fast, interactive, and reusable UI components.",
+//   },
+//   {
+//     name: "Node Js",
+//     img: "node",
+//     desc: "A runtime that allows JavaScript to run on the server, enabling full-stack development with JavaScript.",
+//   },
+//   {
+//     name: "Sass",
+//     img: "sass",
+//     desc: "An advanced CSS preprocessor that makes styling easier with variables, nesting, and mixins.",
+//   },
+// ];
+
 const myStack = [
   {
-    name: "MongoDB",
-    img: "mongo",
-    desc: "MongoDB is a NoSQL database that allows flexible and scalable data storage. I use it to build dynamic and fast applications.",
+    name: "HTML",
+    img: "html",
+    desc: "The standard markup language for creating the structure and content of web pages.",
   },
   {
-    name: "Express Js",
-    img: "express",
-    desc: "A minimalist Node.js framework that simplifies backend development and API creation.",
+    name: "CSS",
+    img: "css3",
+    desc: "A style sheet language used to describe the presentation of HTML elements, enabling layout, color, and typography control.",
+  },
+  {
+    name: "JavaScript",
+    img: "javascript",
+    desc: "A versatile programming language that brings interactivity, dynamic behavior, and logic to web applications.",
   },
   {
     name: "React Js",
@@ -23,29 +56,42 @@ const myStack = [
     desc: "A powerful JavaScript library for building fast, interactive, and reusable UI components.",
   },
   {
-    name: "Node Js",
-    img: "node",
-    desc: "A runtime that allows JavaScript to run on the server, enabling full-stack development with JavaScript.",
+    name: "Supabase",
+    img: "supabase",
+    desc: "An open-source Firebase alternative that offers a real-time database, authentication, and edge functions powered by PostgreSQL.",
   },
   {
-    name: "Sass",
-    img: "sass",
-    desc: "An advanced CSS preprocessor that makes styling easier with variables, nesting, and mixins.",
+    name: "Styled Components",
+    img: "styled-components",
+    desc: "A popular CSS-in-JS library for styling React applications using tagged template literals, enabling dynamic theming and scoped styles.",
   },
 ];
 const Projects = [
-  {
-    img: "alt",
-    stack: ["Wordpress"],
-    desc: "A WordPress-powered platform for the University of Nigeria Alt Protein Project, dedicated to educating and connecting future scientists, innovators, and entrepreneurs. The project promotes sustainable and ethical food systems by advancing alternative protein research and development in Nigeria.",
-    URL: "https://altproteinunn.com/",
-  },
+  // {
+  //   img: "alt",
+  //   stack: ["Wordpress"],
+  //   desc: "A WordPress-powered platform for the University of Nigeria Alt Protein Project, dedicated to educating and connecting future scientists, innovators, and entrepreneurs. The project promotes sustainable and ethical food systems by advancing alternative protein research and development in Nigeria.",
+  //   URL: "https://altproteinunn.com/",
+  // },
   {
     img: "zion",
     stack: ["MongoDB", "ReactJs", "NodeJs", "ExpressJs", "Sass"],
     desc: "Developed a church management system that facilitates <b> donations, mass requests, and infant baptism registrations. </b>The platform provides a seamless user experience with a clean UI, secure backend operations, and email notifications. It integrates <b>payment processing </b>for donations and registrations while ensuring efficient data management with MongoDB.",
     URL: "https://mount-zion.onrender.com/",
   },
+  {
+    img: "recipe-blog",
+    stack: ["Html,Scss,React"],
+    desc: "A simple and responsive recipe blog where users can explore a variety of recipes and search for meals. Built to help home cooks quickly discover dishes they can make with what they have, the app delivers relevant results using recipe-based lookup. Clean UI, and tasty inspiration all in one place.",
+    URL: "https://recipe-blog-0jib.onrender.com",
+  },
+  {
+    img: "clickr",
+    stack: ["Html,Scss,React"],
+    desc: "A clean and distraction-free quiz application designed to test knowledge across various topics. The app features a simple interface, timed questions, and instant feedback—focusing on usability and speed without overwhelming the user. Ideal for quick learning and casual practice.",
+    URL: "https://recipe-blog-0jib.onrender.com",
+  },
+
   {
     img: "primeside",
     stack: ["Wordpress"],
@@ -443,19 +489,19 @@ function App() {
                 <div className="text_wrap">
                   <h2>About Me</h2>
                   <p>
-                    I’m a passionate MERN stack developer with a love for clean
+                    I’m a passionate Full-stack developer with a love for clean
                     code and pixel-perfect designs. Over the past 3 years, I’ve
                     honed my skills in building scalable, user-friendly web
                     applications that not only meet but exceed expectations. My
                     toolkit{" "}
                     <span className="fancy" style={{ fontWeight: "bold" }}>
                       {" "}
-                      MongoDB, Express.js, React, Node.js
+                      Html5, Css3, Javasrcipt,React,Supabase
                     </span>
                     , and a sprinkle of{" "}
                     <span className="fancy" style={{ fontWeight: "bold" }}>
                       {" "}
-                      Sass{" "}
+                      Styled components&apos;{" "}
                     </span>{" "}
                     magic to bring style to functionality. Whether it’s a sleek
                     front-end interface or a robust back-end system, I thrive on
@@ -507,7 +553,7 @@ function App() {
                   <div key={id} className="stack card">
                     <div className="card-front">
                       <img
-                        src={`/imgs/${stack.img}.png`}
+                        src={`/imgs/${stack.img}.svg`}
                         alt={`${stack}-logo`}
                         loading="lazy"
                       />
@@ -570,9 +616,9 @@ function App() {
                         target="_blank"
                       >
                         <Btn
-                          btnText={id === 2 ? "coming soon" : "View Project"}
+                          btnText={id === 3 ? "coming soon" : "View Project"}
                           type={"secondary"}
-                          disable={id === 2}
+                          disable={id === 3}
                         />
                       </a>
                     </div>
