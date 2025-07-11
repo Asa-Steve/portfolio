@@ -75,7 +75,7 @@ const Projects = [
   // },
   {
     img: "zion",
-    stack: ["MongoDB", "ReactJs", "NodeJs", "ExpressJs", "Sass"],
+    stack: ["MongoDB", "ReactJs", "NodeJs", "ExpressJs", "Scss"],
     desc: "Developed a church management system that facilitates <b> donations, mass requests, and infant baptism registrations. </b>The platform provides a seamless user experience with a clean UI, secure backend operations, and email notifications. It integrates <b>payment processing </b>for donations and registrations while ensuring efficient data management with MongoDB.",
     URL: "https://mount-zion.onrender.com/",
   },
@@ -89,7 +89,7 @@ const Projects = [
     img: "clickr",
     stack: ["Html,Scss,React"],
     desc: "A clean and distraction-free quiz application designed to test knowledge across various topics. The app features a simple interface, timed questions, and instant feedback—focusing on usability and speed without overwhelming the user. Ideal for quick learning and casual practice.",
-    URL: "https://recipe-blog-0jib.onrender.com",
+    URL: "https://click-r.netlify.app/",
   },
 
   {
